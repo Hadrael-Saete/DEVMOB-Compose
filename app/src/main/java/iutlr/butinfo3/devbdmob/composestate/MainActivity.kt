@@ -17,7 +17,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -63,17 +67,17 @@ fun ComposeState(modifier: Modifier = Modifier) {
 @Composable
 fun CounterSection() {
     // State variable for the counter
-    var counter = mutableStateOf(0)
+    var counter by remember { mutableIntStateOf(0) } // by = delegation
 
-    Log.d("ComposeState -> counter = ", counter.value.toString())
+    Log.d("ComposeState -> counter = ", counter.toString())
 
     Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
         Text(
-            text = "Counter: ${counter.value}",
+            text = "Counter: ${counter}",
             style = MaterialTheme.typography.headlineMedium
         )
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { counter.value++ }) {
+        Button(onClick = { counter++ }) {
             Text(text = "Increment Counter")
         }
     }
